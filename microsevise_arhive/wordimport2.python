@@ -1,0 +1,139 @@
+"""Doc."""
+
+
+from __future__ import print_function
+from mailmerge import MailMerge
+from datetime import date
+
+# Определите шаблоны - предполагается, что они находятся в том же каталоге, что и код
+template_1 = "AKT_spisania.docx"
+template_2 = "AKT_spisania.docx"
+
+# Покажите простой пример
+document_1 = MailMerge(template_1)
+print("Fields included in {}: {}".format(template_1,
+                                         document_1.get_merge_fields()))
+
+# Merge in the values
+document_1.merge(
+    dolznost='директор',
+    FIO0='Жилин.Д.Д',
+    FIO1='Жилин.Д.Д',
+    FIO2='Жилин.Д.Д',
+    FIO3='Жилин.Д.Д',
+    FIO4='Жилин.Д.Д',
+    FIO5='Жилин.Д.Д',
+    FIO6='Жилин.Д.Д',
+    FIO7='Жилин.Д.Д',
+    FIO8='Жилин.Д.Д',
+    FIO9='Жилин.Д.Д',
+    FIO10='Жилин.Д.Д',
+    FIO12='Жилин.Д.Д',
+    date='{:%d-%b-%Y}'.format(date.today()),
+    FIO13='Жилин.Д.Д',
+    FIO14='Жилин.Д.Д',
+    FIO15='Жилин.Д.Д',
+    FIO16='Жилин.Д.Д',
+    FIO17='Жилин.Д.Д',)
+# Save the document as example 1
+document_1.write('AKT_spisania_copy.docx')
+
+# Try example number two where we create multiple pages
+# Define a dictionary for 3 customers
+cust_1 = {
+    'dolznost': 'директор',
+    'FIO0': 'Жилин.Д.Д',
+    'FIO1': 'Жилин.Д.Д',
+    'FIO2': 'Жилин.Д.Д',
+    'FIO3': 'Жилин.Д.Д',
+    'FIO4': 'Жилин.Д.Д',
+    'FIO5': 'Жилин.Д.Д',
+    'FIO6': 'Жилин.Д.Д',
+    'FIO7': 'Жилин.Д.Д',
+    'FIO8': 'Жилин.Д.Д',
+    'FIO9': 'Жилин.Д.Д',
+    'FIO10': 'Жилин.Д.Д',
+    'FIO11': 'Жилин.Д.Д',
+    'FIO12': 'Жилин.Д.Д',
+    'date': '{:%d-%b-%Y}'.format(date.today()),
+    'FIO13': 'Жилин.Д.Д',
+    'FIO14': 'Жилин.Д.Д',
+    'FIO15': 'Жилин.Д.Д',
+    'FIO16': 'Жилин.Д.Д',
+    'FIO17': 'Жилин.Д.Д',
+ 
+}
+
+cust_2 = {
+    'dolznost': 'директор',
+    'FIO0': 'Жилин.Д.Д',
+    'FIO1': 'Жилин.Д.Д',
+    'FIO2': 'Жилин.Д.Д',
+    'FIO3': 'Жилин.Д.Д',
+    'FIO4': 'Жилин.Д.Д',
+    'FIO5': 'Жилин.Д.Д',
+    'FIO6': 'Жилин.Д.Д',
+    'FIO7': 'Жилин.Д.Д',
+    'FIO8': 'Жилин.Д.Д',
+    'FIO9': 'Жилин.Д.Д',
+    'FIO10': 'Жилин.Д.Д',
+    'FIO11': 'Жилин.Д.Д',
+    'FIO12': 'Жилин.Д.Д',
+    'date': '{:%d-%b-%Y}'.format(date.today()),
+    'FIO13': 'Жилин.Д.Д',
+    'FIO14': 'Жилин.Д.Д',
+    'FIO15': 'Жилин.Д.Д',
+    'FIO16': 'Жилин.Д.Д',
+    'FIO17': 'Жилин.Д.Д',
+}
+
+cust_3 = {
+    'dolznost': 'директор',
+    'FIO0': 'Жилин.Д.Д',
+    'FIO1': 'Жилин.Д.Д',
+    'FIO2': 'Жилин.Д.Д',
+    'FIO3': 'Жилин.Д.Д',
+    'FIO4': 'Жилин.Д.Д',
+    'FIO5': 'Жилин.Д.Д',
+    'FIO6': 'Жилин.Д.Д',
+    'FIO7': 'Жилин.Д.Д',
+    'FIO8': 'Жилин.Д.Д',
+    'FIO9': 'Жилин.Д.Д',
+    'FIO10': 'Жилин.Д.Д',
+    'FIO11': 'Жилин.Д.Д',
+    'FIO12': 'Жилин.Д.Д',
+    'date': '{:%d-%b-%Y}'.format(date.today()),
+    'FIO13': 'Жилин.Д.Д',
+    'FIO14': 'Жилин.Д.Д',
+    'FIO15': 'Жилин.Д.Д',
+    'FIO16': 'Жилин.Д.Д',
+    'FIO17': 'Жилин.Д.Д',
+}
+
+document_2 = MailMerge(template_1)
+document_2.merge_templates([cust_1, cust_2, cust_3], separator='page_break')
+document_2.write('example2.docx')
+
+# Final Example includes a table with the sales history
+
+sales_history = [{
+    'prod_desc': 'Red Shoes',
+    'price': '$10.00',
+    'quantity': '2500',
+    'total_purchases': '$25,000.00'
+}, {
+    'prod_desc': 'Green Shirt',
+    'price': '$20.00',
+    'quantity': '10000',
+    'total_purchases': '$200,000.00'
+}, {
+    'prod_desc': 'Purple belt',
+    'price': '$5.00',
+    'quantity': '5000',
+    'total_purchases': '$25,000.00'
+}]
+
+document_3 = MailMerge(template_2)
+document_3.merge(**cust_2)
+document_3.merge_rows('prod_desc', sales_history)
+document_3.write('example3.docx')

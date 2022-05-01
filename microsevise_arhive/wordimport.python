@@ -1,0 +1,108 @@
+"""Doc."""
+
+
+from __future__ import print_function
+from mailmerge import MailMerge
+from datetime import date
+
+# Определите шаблоны - предполагается, что они находятся в том же каталоге, что и код
+template_1 = "Test.docx"
+template_2 = "Test2.docx"
+
+# Покажите простой пример
+document_1 = MailMerge(template_1)
+print("Fields included in {}: {}".format(template_1,
+                                         document_1.get_merge_fields()))
+
+# Merge in the values
+document_1.merge(
+    status='золотой',
+    city='Свободный',
+    phone_number='79222172516',
+    Business='Кулл-Нттек',
+    zip='6534434',
+    purchases='500,000р',
+    shipping_limit='$500р',
+    state='ру',
+    address='1234 Main Street',
+    date='{:%d-%b-%Y}'.format(date.today()),
+    discount='5%',
+    recipient='Даниил Жилин')
+
+# Save the document as example 1
+document_1.write('example1.docx')
+
+# Try example number two where we create multiple pages
+# Define a dictionary for 3 customers
+cust_1 = {
+    'status': 'золотой',
+    'city': 'Свободный',
+    'phone_number': '7922222222',
+    'Business': 'Кулл-Нттек',
+    'zip': '6534434',
+    'purchases': '500,000р',
+    'shipping_limit': '500р',
+    'state': 'РУ',
+    'address': '1234 Main Street',
+    'date': '{:%d-%b-%Y}'.format(date.today()),
+    'discount': '5%',
+    'recipient': 'Даниил Жилин'
+}
+
+cust_2 = {
+    'status': 'золотой',
+    'city': 'Свободный',
+    'phone_number': '7922222222',
+    'Business': 'Кулл-Нттек',
+    'zip': '6534434',
+    'purchases': '500,000р',
+    'shipping_limit': '500р',
+    'state': 'РУ',
+    'address': '1234 Main Street',
+    'date': '{:%d-%b-%Y}'.format(date.today()),
+    'discount': '5%',
+    'recipient': 'Даниил Жилин'
+}
+
+cust_3 = {
+    'status': 'золотой',
+    'city': 'Свободный',
+    'phone_number': '7922222222',
+    'Business': 'Кулл-Нттек',
+    'zip': '6534434',
+    'purchases': '500,000р',
+    'shipping_limit': '500р',
+    'state': 'РУ',
+    'address': '1234 Main Street',
+    'date': '{:%d-%b-%Y}'.format(date.today()),
+    'discount': '5%',
+    'recipient': 'Даниил Жилин'
+}
+
+document_2 = MailMerge(template_1)
+document_2.merge_templates([cust_1, cust_2, cust_3], separator='page_break')
+document_2.write('example2.docx')
+
+# Final Example includes a table with the sales history
+
+sales_history = [{
+    'prod_desc': 'Red Shoes',
+    'price': '$10.00',
+    'quantity': '2500',
+    'total_purchases': '$25,000.00'
+}, {
+    'prod_desc': 'Green Shirt',
+    'price': '$20.00',
+    'quantity': '10000',
+    'total_purchases': '$200,000.00'
+}, {
+    'prod_desc': 'Purple belt',
+    'price': '$5.00',
+    'quantity': '5000',
+    'total_purchases': '$25,000.00'
+}]
+
+document_3 = MailMerge(template_2)
+document_3.merge(**cust_2)
+document_3.merge_rows('prod_desc', sales_history)
+document_3.write('example3.docx')
